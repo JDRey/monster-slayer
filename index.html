@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,23 +9,37 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="vue.js"></script>
 </head>
+
 <body>
     <div id='app'>
-        <input type='text' v-on:input='changeTitle'/>
-        <p>{{title}}</p>
+        <h1>Vue Project 1</h1>
+        <div>
+            <p v-once>The default title is: {{title}}</p>
+            <input type='text' placeholder='Type new title here' v-on:input='changeTitle' />
+            <p>The default title is now: {{title}} - and here is a v-bind directive for a link: <a v-bind:href='link'>Google</a></p>
+        </div>
+        <div>
+            <p v-once>The sayHello title is now: {{ sayHello() }}</p>
+        </div>
     </div>
 </body>
 <script>
-    new Vue ({
+    new Vue({
         el: '#app',
         data: {
-            title: 'Hello, World!',
+            title: 'Hello, World! This is the initial title data.',
+            link: 'http://google.com',
         },
         methods: {
-            changeTitle: function(e) {
+            changeTitle: function (e) {
                 this.title = e.target.value;
-            }
+            },
+            sayHello: function () {
+                this.title = 'Interpolated by using a method. The title in "data" was updated with this method to show this message.'
+                return this.title;
+            },
         },
     });
 </script>
+
 </html>
